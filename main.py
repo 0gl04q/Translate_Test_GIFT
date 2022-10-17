@@ -2,10 +2,18 @@ import docx
 import easygui as g
 
 
-def translate_docx():
-    file_name = g.fileopenbox('Выберите файл')  # Выбор документа
+def change_file():
+    name = ''
+    while name.find('docx'):
+        name = g.fileopenbox('Выберите файл')  # Выбор документа
+        if not name.find('docx'):
+            translate_docx(name)  # Вызов функции обработки файла
+        else:
+            print('Вы выбрали некорректный файл!')
 
-    doc = docx.Document(file_name)
+
+def translate_docx(file_name):
+    doc = docx.Document(file_name)  # Открытие файла
 
     all_str = doc.paragraphs  # Разбор документа на строки
 
@@ -28,8 +36,6 @@ def translate_docx():
 
     new_file.write('}')  # Окончание обработки файла
 
-    print('Выполнение завершено!')
-
 
 if __name__ == '__main__':
-    translate_docx()
+    change_file()
